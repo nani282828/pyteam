@@ -1,0 +1,22 @@
+steps to create resporatory and push to github online
+
+1)create repo:
+git init <directory name>
+
+2)add files to git
+git add . or git add -A add all files and direcoties
+
+3)commit the files
+git commit -m 'first commit'
+
+
+4)add url of repo
+git remote add origin <online git url>
+
+
+5)git remote -v 
+it will verifies the new remote url
+
+
+6)git push origin master
+
