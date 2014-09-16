@@ -20,3 +20,6 @@ it will verifies the new remote url
 
 6)git push origin master
 
+//facebook twitter tokens git
+
+https://github.com/mitar/django-mongo-auth/blob/master/mongo_auth/views.py
