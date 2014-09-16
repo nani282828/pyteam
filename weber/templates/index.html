@@ -1,0 +1,12 @@
+<html>
+<body>
+<center><h1>TheWeber</h1></center>
+{% for u in user_details %}
+{{u.username}}
+{{u.password}}
+<br/>
+{% endfor %}
+<a href="/index/register">create your account</a>
+<a href="/index/login">login</a>
+</body>
+</html>
