@@ -2,11 +2,14 @@
 <head>login</head>
 <body>
 <h1>login here</h1>
+{{ user }}
 <form method="POST" action="/index/login">
     {% csrf_token %}
     <input type="text" name="username" id="username"/>
-    <input type="password" name="password" id="password"/>
+    <input type="text" name="password" id="password"/>
     <input type="submit" value="login" id="submit-login"/>
+
 </form>
+{{ messages }}
 </body>
 </html>
