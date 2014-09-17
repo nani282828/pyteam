@@ -6,6 +6,9 @@ from django.http import HttpResponse
 from mongoengine.queryset import DoesNotExist
 from django.contrib import messages
 from mongoengine.django.auth import User
+from django.contrib.auth import authenticate
+#from django.contrib.auth.models import check_password
+from mongoengine import *
 
 
 
@@ -15,7 +18,8 @@ def register(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
-        User_save = User1(username=username, password=password)
+        User_save = User(username=username, password=password)
+        User_save.set_password(password)
         User_save.save()
         return render(request,'index.html')
     else:
@@ -25,18 +29,20 @@ def index(request):
 
 
 def login(request):
-    try:
-        if request.method == 'POST':
-            username = request.POST['username']
-            password = request.POST['password']
-            userdata = User1.objects.get(username=username,password=password)
-            if userdata:
-                
-                return render(request,'login.html', {'user': 'successfully logged in'})
-            else:
-                return render(request,'login.html',{'user':"enter correct details first "})
+    #User.backend = 'mongoengine.django.auth.MongoEngineBackend'
+    if request.method == 'POST':
+        name = request.POST['username']
+        passs = request.POST['password']
+
+        #userdata = User.objects.get(username=username)
+        #user = User.objects.get(username=name)#request.POST['username'])
+        user = authenticate(username=name,password=passs)#request.POST['password']):
+        if user is not None:
+            #user.backend = 'mongoengine.django.auth.MongoEngineBackend'
+            #print login(request, user)
+            return render(request,'testing.html',{'result':'LOGIN SUCCESS'})
         else:
-            return render(request,'login.html',{'user':''})
-    except DoesNotExist:
-        messages = "invalid username and password"
-    return render(request,'login.html',{})
+            return render(request,'testing.html',{'result':'FAILED'})
+
+    else:
+        return render(request,'login.html',{'result':'false'})
