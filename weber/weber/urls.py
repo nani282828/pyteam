@@ -8,6 +8,5 @@ urlpatterns = patterns('',
     # url(r'^$', 'weber.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
-    url(r'^index/', include('login.urls')),
-    url(r'^$',include('login.urls')),
+    url(r'^theweber.in/', include('login.urls')),
 )

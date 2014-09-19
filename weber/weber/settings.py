@@ -29,7 +29,8 @@ ALLOWED_HOSTS = []
 AUTHENTICATION_BACKENDS = (
     'mongoengine.django.auth.MongoEngineBackend',
 )
-
+LOGIN_URL = '/theweber.in/login'
+LOGIN_REDIRECT_URL = '/theweber.in/login'
 
 # Application definition
 
@@ -42,6 +43,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 )
+
 MONGOENGINE_USER_DOCUMENT = 'mongoengine.django.auth.User'
 AUTH_USER_MODEL = 'mongo_auth.MongoUser'
 

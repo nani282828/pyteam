@@ -1,0 +1,25 @@
+<html>
+<head>
+    <title>theweber.in</title>
+</head>
+<body>
+<div id="status_post">
+    <form method="POST" action="" enctype="multipart/form-data">
+        <textarea class="status_post" id="status_post_textarea" name="status_post_textarea"></textarea>
+        <select id="access_permissions" name="access_permissions">
+            <option id="public" name="public" value="public">public</option>
+            <option id="private" name="private" value="private">private</option>
+            <option id= name="friends" value="friends">friends</option>
+        </select>
+        <input type="submit" value="update">
+
+
+
+    </form>
+
+
+</div>
+welcome to weber your name is: {{ username }}
+<a href="/theweber.in/logout">Logout</a>
+</body>
+</html>

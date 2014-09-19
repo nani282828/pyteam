@@ -2,14 +2,13 @@
 <head>login</head>
 <body>
 <h1>login here</h1>
-{{ user }}
-<form method="POST" action="/index/login">
+<form method="POST" action="/theweber.in/login">
     {% csrf_token %}
     <input type="text" name="username" id="username"/>
     <input type="text" name="password" id="password"/>
     <input type="submit" value="login" id="submit-login"/>
 
 </form>
-{{ messages }}
+{{ result }}
 </body>
 </html>

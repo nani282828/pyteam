@@ -2,13 +2,14 @@ from django.shortcuts import render
 from django.shortcuts import render_to_response
 #from forms import UserForm
 from models import User1
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 from mongoengine.queryset import DoesNotExist
-from django.contrib import messages
+from django.contrib import messages,auth
 from mongoengine.django.auth import User
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate,logout
 #from django.contrib.auth.models import check_password
-from mongoengine import *
+#from mongoengine import *
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -18,31 +19,41 @@ def register(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
-        User_save = User(username=username, password=password)
-        User_save.set_password(password)
+        User_save = User.create_user(username=username,email=None,password=password)
         User_save.save()
-        return render(request,'index.html')
+        return HttpResponseRedirect('/theweber.in/')
     else:
         return render(request,'register.html')
+
+@login_required(login_url='/theweber.in/login')
+def home(request):
+    if request.user.is_authenticated:
+        return render(request,'home.html',{'username': request.user.username})
+    else:
+        return HttpResponseRedirect('/theweber.in/login')
+
 def index(request):
     return render(request,"index.html",{})
 
 
 def login(request):
-    #User.backend = 'mongoengine.django.auth.MongoEngineBackend'
     if request.method == 'POST':
-        name = request.POST['username']
-        passs = request.POST['password']
-
-        #userdata = User.objects.get(username=username)
-        #user = User.objects.get(username=name)#request.POST['username'])
-        user = authenticate(username=name,password=passs)#request.POST['password']):
-        if user is not None:
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username,password=password)#request.POST['password']):
+        if user is not None and user.is_active:
             #user.backend = 'mongoengine.django.auth.MongoEngineBackend'
-            #print login(request, user)
-            return render(request,'testing.html',{'result':'LOGIN SUCCESS'})
+            auth.login(request, user)
+            return HttpResponseRedirect('/theweber.in/home')
         else:
-            return render(request,'testing.html',{'result':'FAILED'})
-
+            return render(request,'login.html',{'result':'username and password not valid'})
     else:
-        return render(request,'login.html',{'result':'false'})
+        return render(request,'login.html',{'result':''})
+
+
+"""def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect('/theweber.in/')"""
+
+
+
