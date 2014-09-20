@@ -28,7 +28,8 @@ def register(request):
 @login_required(login_url='/theweber.in/login')
 def home(request):
     if request.user.is_authenticated:
-        return render(request,'homepage.html',{'username': request.user.username})
+        posts = db.userpost.find()
+        return render(request,'homepage.html',{'userposts': posts, 'username':request.user.username})
     else:
         return HttpResponseRedirect('/theweber.in/login')
 
