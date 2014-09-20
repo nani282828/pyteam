@@ -11,4 +11,15 @@
           });
         return false;
       });
-  });
+
+    $(window).scroll(function(){
+        if ($(window).scrollTop() == $(document).height() - $(window).height()){
+            alert("scroll down");
+            load_remain_user_posts();
+        }
+    });
+});
+function load_remain_user_posts(){
+var ID=$(".message_box:last").attr("id");
+alert(ID)
+}

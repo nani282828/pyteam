@@ -8,5 +8,6 @@ class Userpost(Document):
     publish_date = DateTimeField()
     username = StringField(max_length=120,required=True)
     permission_type=StringField(max_length=120,required=True)
+    #auto_id = IntField(required=True)
     #user_id = StringField(max_length=200)
 
