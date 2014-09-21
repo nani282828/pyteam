@@ -1,0 +1,8 @@
+{% for temp_posts in load_remain_posts %}
+         <div>{{temp_posts.username}}</div>
+         <div>
+             <span>{{temp_posts.title}}</span>
+             <span class='postdatestyles'>{{temp_posts.publish_date}}</span>
+         </div>
+        <br/>===========================
+ {% endfor %}

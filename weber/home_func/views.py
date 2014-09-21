@@ -5,6 +5,8 @@ from models import Userpost
 #from django.contrib.auth import User
 from mongoengine.django.auth import User
 import json
+from django.views.decorators.csrf import csrf_exempt
+
 import datetime
 
 # Create your views here.
@@ -21,11 +23,10 @@ def post_status(request):
         return render(request,'homepage.html',{'userpost':'no post posted'})
 
 
-#@csrf_exempt
+
 def load_scroll_posts(request):
-    #if request.method == 'POST':
-        #down_post_id = request.POST['last_msg_id']
-    return HttpResponse(json.dumps({'post_title': 'vcbcvbcvb'}))
-    #else:
-         #return HttpResponse(json.dumps({'down_post_id': 'dfdsfsdf'}))
+    if request.method == 'POST':
+        post_id = request.POST['post_id']
+        loaded_posts = Userpost.objects.filter(id__gt = post_id).limit(2)
+        return render(request,'ajax_out.html',{'load_remain_posts':loaded_posts})
 
