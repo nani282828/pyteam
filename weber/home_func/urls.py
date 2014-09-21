@@ -9,4 +9,5 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^post_status$','home_func.views.post_status'),
+    url(r'^load_more_posts$','home_func.views.load_scroll_posts'),
 )

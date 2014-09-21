@@ -135,10 +135,11 @@
           <div class="ui minimal comments" id="userpostdiv">
       {% for user_post in userposts%}
         <div>{{user_post.username}}</div>
-        <div class="message_box" id='lastid'><span>{{ user_post.title}}</span><span class="postdatestyles">{{user_post.publish_date}}</span></div>
+        <div class="message_box" id='{{user_post.id}}'><span>{{ user_post.title}}</span><span class="postdatestyles">{{user_post.publish_date}}</span></div>
         <div>========================================</div>
       {% endfor %}
-        </div>
+
+      </div>
 
 
 
