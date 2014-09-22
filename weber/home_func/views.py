@@ -60,6 +60,6 @@ def frnd_requests(request):
             friends(friend1=friend1, friend2=[friend2]).save()
             return HttpResponse(json.dumps({'to_user':'new session user added'}))
 
-def profile_info(request):
-    if request.method=='GET':
-        return HttpResponseRedirect('/theweber.in/profile');
+def profile_info(request,username):
+    user_details = User.objects.get(username=username)
+    return render(request,'profile.html',{'user':user_details})

@@ -11,5 +11,6 @@ urlpatterns = patterns('',
     url(r'^post_status$','home_func.views.post_status'),
     url(r'^load_more_posts','home_func.views.load_scroll_posts'),
     url(r'^search','home_func.views.search_titles'),
-    url(r'^profile','home_func.views.profile_info'),
+    url(r'^profile/(?P<username>[-\w]+)/$','home_func.views.profile_info'),
+    #url(r'^profile/','home_func.views.profile_info'),
 )
