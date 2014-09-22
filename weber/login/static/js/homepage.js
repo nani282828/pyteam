@@ -18,43 +18,29 @@
             load_remain_user_posts();
         }
     });
+
+
+    $(window).scroll(function(){
+        if ($(window).scrollTop() == $(document).height() - $(window).height()){
+            load_remain_user_posts();
+        }
+    });
 });
+
+
 function load_remain_user_posts(){
-var post_id=$(".message_box:last").attr("id");
-//alert(post_id)
-var csrftoken = getCookie('csrftoken');
+    var post_id=$(".message_box:last").attr("id");
+    var csrftoken = getCookie('csrftoken');
+    alert(post_id)
+    $.post('/theweber.in/load_more_posts',{'post_id':post_id,'csrfmiddlewaretoken':csrftoken}, function(data){
+    $("#userpostdiv").append(data)
 
- /*$.post('/theweber.in/load_more_posts',{'last_msg_id':post_id,'csrfmiddlewaretoken':csrftoken},function(data){
-            var obj = JSON.parse(data);
-            console.log(obj)
-            //$("#userpostdiv").prepend("<div>"+obj.username+"</div><div><span>"+obj.post_title+"</span><span class='postdatestyles'>"+obj.publish_date+"</span></div><br/>===========================");
+    });
+ }
 
-          });*/
 function csrfSafeMethod(method) {
     // these HTTP methods do not require CSRF protection
     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-}
-
-
-
-$.ajax({
-		type: 'post',
-		url: '/theweber.in/load_more_posts',
-		data: {'last_msg_id':post_id,'csrfmiddlewaretoken':csrftoken},
-		dataType: "json",
-		beforeSend: function(xhr, settings) {
-        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-            xhr.setRequestHeader("X-CSRFToken", csrftoken);
-             }
-         },
-		complete: function(data){
-		    var obj = JSON.parse(data);
-			alert(obj.post_title)
-			console.log(obj)
-
-		}
-	});
-
 }
 
 function getCookie(name) {
