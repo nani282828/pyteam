@@ -14,7 +14,7 @@
 {% if matched_friends.count > 0 %}
         {% for User in matched_friends %}
         {% csrf_token %}
-            <li onclick="profile('{{User.email}}')"><a  href="/theweber.in/{{User.username}}">{{ User.username}}</a></li>
+            <li onclick="profile('{{User.email}}')"><a  href="/theweber.in/profile/{{User.username}}">{{ User.username}}</a></li>
         {% endfor %}
 
 {% else %}
