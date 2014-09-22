@@ -1,8 +1,25 @@
+{% if action == 'loadscrollposts' %}
 {% for temp_posts in load_remain_posts %}
-         <div>{{temp_posts.username}}</div>
-         <div>
+        <div class ="message_box" id="{{temp_posts.id}}">
+             <div>{{temp_posts.username}}</div>
              <span>{{temp_posts.title}}</span>
              <span class='postdatestyles'>{{temp_posts.publish_date}}</span>
-         </div>
-        <br/>===========================
+             <div>===========================</div>
+        </div>
+
  {% endfor %}
+ {% endif %}
+
+{% if action == 'searchfriendsnames' %}
+{% if matched_friends.count > 0 %}
+        {% for User in matched_friends %}
+        {% csrf_token %}
+            <li onclick="profile('{{User.email}}')"><a  href="/theweber.in/{{User.username}}">{{ User.username}}</a></li>
+        {% endfor %}
+
+{% else %}
+        <li>None to show</li>
+
+{% endif %}
+
+{% endif %}

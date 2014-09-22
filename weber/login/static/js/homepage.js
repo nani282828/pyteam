@@ -6,34 +6,57 @@
         $.post('/theweber.in/post_status', $(this).serialize(), function(data){
             var obj = JSON.parse(data);
             console.log(obj)
-            $("#userpostdiv").prepend("<div>"+obj.username+"</div><div><span>"+obj.post_title+"</span><span class='postdatestyles'>"+obj.publish_date+"</span></div><br/>===========================");
-
+            $("#userpostdiv").prepend("<div>"+obj.username+"</div><div class='message_box' id='"+obj.id+"'><span>"+obj.post_title+"</span><span class='postdatestyles'>"+obj.publish_date+"</span></div><br/>===========================");
+            $("#post_text").val('');
           });
         return false;
       });
+//=========search method==============
+$('#search').keyup(function() {
+         $.ajax({
+            type: "POST",
+            url: "/theweber.in/search",
+            data: {
+                'search_text' : $('#search').val(),
+                'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
+            },
+            success: searchSuccess,
+            dataType: 'html'
+        });
 
-    $(window).scroll(function(){
+    });
+
+});
+
+
+  $(window).scroll(function(){
         if ($(window).scrollTop() == $(document).height() - $(window).height()){
             //alert("scroll down");
+
             load_remain_user_posts();
         }
     });
 
-
-    $(window).scroll(function(){
-        if ($(window).scrollTop() == $(document).height() - $(window).height()){
-            load_remain_user_posts();
-        }
-    });
-});
+function searchSuccess(data, textStatus, jqXHR){
+    $('#search-results').html(data);
+         console.log(data);
+}
 
 
 function load_remain_user_posts(){
     var post_id=$(".message_box:last").attr("id");
     var csrftoken = getCookie('csrftoken');
-    alert(post_id)
+    //alert(post_id)
+
     $.post('/theweber.in/load_more_posts',{'post_id':post_id,'csrfmiddlewaretoken':csrftoken}, function(data){
-    $("#userpostdiv").append(data)
+
+    if (data != "") {
+        $(".message_box:last").after(data);
+    }
+    else
+         console.log("NO DATA FOUDN")
+    //$('div#last_msg_loader').empty();
+    //$("#userpostdiv").append(data)
 
     });
  }
@@ -58,3 +81,33 @@ function getCookie(name) {
     }
     return cookieValue;
 }
+
+
+
+function profile(username){
+     alert(username)
+     $.ajax({
+            type: "POST",
+            url: "/show_profile",
+            data: {
+                'to_user':username,
+                'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
+            },
+            success: request_sent_not,
+            dataType: 'html'
+        });
+}
+
+function request_sent_not(data, textStatus, jqXHR)
+{
+    alert(data)
+    console(log.data)
+}
+
+
+$(function(){
+
+
+
+});
+

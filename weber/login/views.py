@@ -29,7 +29,7 @@ def register(request):
 @login_required(login_url='/theweber.in/login')
 def home(request):
     if request.user.is_authenticated:
-        posts = Userpost.objects[1:15]
+        posts = Userpost.objects.filter().order_by('-publish_date').limit(2)
         return render(request,'homepage.html',{'userposts': posts, 'username':request.user.username})
     else:
         return HttpResponseRedirect('/theweber.in/login')
@@ -52,10 +52,6 @@ def login(request):
     else:
         return render(request,'login.html',{'result':''})
 
-
-"""def logout_view(request):
-    logout(request)
-    return HttpResponseRedirect('/theweber.in/')"""
 
 
 
