@@ -1,0 +1,42 @@
+{% extends 'homepage.html' %}
+{% load set_var %}
+{% block body %}
+{% if user.is_authenticated %}
+    {%if user.id == user1.id%}
+        <form action="" method="post" name="updateinfo" id="updateinfo">
+            {%csrf_token%}
+            <input type="text" value="{{user1.username}}" name="username" id="username">
+            <input type="text" value="{{user1.id}}" name="userid" id="userid">
+            <input type="submit" value="update info">
+        </form>
+        <div id="updatestatus">fgdgdg</div>
+
+    {% elif user.id != userid%}
+        <form action="" method="post" name="sendrequest" id="sendrequest">
+            {%csrf_token%}
+             <div>{{user1.username}}</div>
+             <input type="hidden" value="{{user1.id}}" name="tofriend" id="tofriend">
+             {% with count1=0 %}
+                {% if friendslist%}
+                    {% for friends in friendslist%}
+                       {% for fl in friends.myfriendslist %}
+                            {% if fl.myfriends_ids == None and count1 == 0  %}
+                                <input type="submit" value="add friend" id="addfriend" name="add friend">
+                                {% set count1 = 3 %}
+                            {% elif  userid == fl.myfriends_ids and fl.status == '1' and count1 == 0 %}
+                                <input type="button" value="friend request sent"/>
+                                 {% set count1 = 3 %}
+                            {% elif userid == fl.myfriends_ids and fl.status == '2' and count1 == 0 %}
+                                <input type="button" value="friends"/>
+                                 {% set count1 = 3 %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                {% else %}
+                    <input type="submit" value="add friend" id="add friend" name="add friend">
+                {% endif %}
+             {% endwith %}
+        </form>
+     {% endif %}
+{% endif %}
+{% endblock %}
