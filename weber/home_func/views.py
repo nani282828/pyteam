@@ -7,19 +7,33 @@ from mongoengine.django.auth import User
 import json
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+<<<<<<< HEAD
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect
 from models import Friends
 from models import myfriends
 from django import template
+=======
+from django.http import HttpResponseRedirect
+>>>>>>> 3bcb87ffc783c7ed7ea7c54aee8890dcc91e889c
 
 import datetime
 
 # Create your views here.
 def post_status(request):
     if request.method == 'POST':
+<<<<<<< HEAD
         new_post = Userpost.objects.create(title=request.POST['post_text'],username=request.user.username,publish_date=datetime.datetime.now(),permission_type=request.POST['permission_type'])
         return render(request,'ajax_out.html',{'up':new_post,'action' : 'new_post_posted'})
+=======
+        title = request.POST['post_text']
+        post = Userpost(title=title)
+        post.username = request.user.username
+        post.publish_date = datetime.datetime.now()
+        post.permission_type = request.POST['permission_type']
+        post.save()
+        return HttpResponse(json.dumps({'post_title': request.POST['post_text'],'publish_date':str(datetime.datetime.now()),'permission_type':request.POST['permission_type'],'username':request.user.username}))
+>>>>>>> 3bcb87ffc783c7ed7ea7c54aee8890dcc91e889c
     else:
         return render(request,'homepage.html',{'userpost':'no post posted'})
 
@@ -47,8 +61,15 @@ def search_titles(request):
 def frnd_requests(request):
     if request.method == 'POST':
         try:
+<<<<<<< HEAD
             if friends.objects.get(friend1 = User.objects.get(email = request.user.email)):
                #u.save()
+=======
+
+            if friends.objects.get(friend1 = User.objects.get(email = request.user.email)):
+
+                #u.save()
+>>>>>>> 3bcb87ffc783c7ed7ea7c54aee8890dcc91e889c
                 return HttpResponse(json.dumps({'to_user':'already added session user'}))
         except:
             to_user = request.POST['to_user']
@@ -59,6 +80,7 @@ def frnd_requests(request):
 
 def profile_info(request,username):
     user_details = User.objects.get(username=username)
+<<<<<<< HEAD
     friendslist = Friends.objects(friend1=request.user.id)
     return render(request,'profile.html',{'user1':user_details,'friendslist':friendslist,'userid':str(user_details.id)})
 
@@ -90,3 +112,6 @@ def frnd_request_sent(request):
             return HttpResponse('SAVED')
 
 
+=======
+    return render(request,'profile.html',{'user':user_details})
+>>>>>>> 3bcb87ffc783c7ed7ea7c54aee8890dcc91e889c

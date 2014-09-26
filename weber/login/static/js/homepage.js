@@ -4,9 +4,15 @@
          var post_text = $( "#post_text" ).val();
 
         $.post('/theweber.in/post_status', $(this).serialize(), function(data){
+<<<<<<< HEAD
             //var obj = JSON.parse(data);
             console.log(data);
             $("#userpostdiv").prepend(data);
+=======
+            var obj = JSON.parse(data);
+            console.log(obj)
+            $("#userpostdiv").prepend("<div>"+obj.username+"</div><div class='message_box' id='"+obj.id+"'><span>"+obj.post_title+"</span><span class='postdatestyles'>"+obj.publish_date+"</span></div><br/>===========================");
+>>>>>>> 3bcb87ffc783c7ed7ea7c54aee8890dcc91e889c
             $("#post_text").val('');
           });
         return false;
@@ -25,6 +31,7 @@ $('#search').keyup(function() {
         });
 
     });
+<<<<<<< HEAD
     //========================update info================
      jQuery("#updateinfo").submit(function( event ) {
 
@@ -46,6 +53,12 @@ $('#search').keyup(function() {
       });
 
 });
+=======
+
+});
+
+
+>>>>>>> 3bcb87ffc783c7ed7ea7c54aee8890dcc91e889c
   $(window).scroll(function(){
         if ($(window).scrollTop() == $(document).height() - $(window).height()){
             //alert("scroll down");
@@ -122,3 +135,12 @@ function request_sent_not(data, textStatus, jqXHR)
 }
 
 
+<<<<<<< HEAD
+=======
+$(function(){
+
+
+
+});
+
+>>>>>>> 3bcb87ffc783c7ed7ea7c54aee8890dcc91e889c
