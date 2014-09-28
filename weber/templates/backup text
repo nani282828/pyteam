@@ -1,0 +1,193 @@
+
+{% with count1=0 %}
+                {% if friendslist%}
+                    {% for friends in friendslist%}
+                       {% for fl in friends.myfriendslist %}
+                            {{ userid }}======{{fl.myfriends_ids}}<br/>
+                            {% if fl.myfriends_ids == None %}
+                                <input type="submit" value="add friend" id="addfriend" name="add friend">
+                                {% set count1 = 3 %}
+                            {% elif  userid == fl.myfriends_ids and fl.status == '1' and count1 == 0 %}
+                                <input type="button" value="friend request sent"/>
+                                 {% set count1 = 3 %}
+                            {% elif userid == fl.myfriends_ids and fl.status == '2' and count1 == 0 %}
+                                <input type="button" value="friends"/>
+                                 {% set count1 = 3 %}
+                            {% else %}
+                                no data found
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                {% else %}
+                    <input type="submit" value="add friend" id="add friend" name="add friend">
+                {% endif %}
+             {% endwith %}
+        </form>
+     {% endif %}
+{% endif %}
+{% endblock %}
+//=====================
+{% extends 'homepage.html' %}
+{% load set_var %}
+{% block body %}
+{{ final_result }}
+{{ rejected }}
+
+{% if user.is_authenticated %}
+    <a href="/theweber.in/home">goto home</a>
+
+    {%if user.id == user1.id%}
+        <form action="" method="post" name="updateinfo" id="updateinfo">
+            {%csrf_token%}
+            <input type="text" value="{{user1.username}}" name="username" id="username">
+            <input type="text" value="{{user1.id}}" name="userid" id="userid">
+            <input type="submit" value="update info">
+        </form>
+        <div id="updatestatus"></div>
+
+
+
+    {% elif userid == "notfound" %}
+        <form action="/theweber.in/sendrequest" method="post" name="sendrequest" id="sendrequest">
+            {%csrf_token%}
+             <div>{{user1.username}}</div>
+             <input type="hidden" value="{{user1.id}}" name="tofriend" id="tofriend">
+             <input type="submit" value="add friend" id="addfriend" name="addfriend">
+        </form>
+
+
+    {% elif final_result == "hasbeensent" and rejected != True %}
+         <form action="/theweber.in/rejectrequest" method="post" name="rejectrequest" id="rejectrequest">
+            {%csrf_token%}
+             <div>{{user1.username}}</div>
+             <input type="hidden" value="{{user1.id}}" name="rejectfriendid" id="rejectfriendid">
+             <input type="submit" value="reject friend" id="rejectfriend" name="rejectfriend">
+        </form>
+
+
+    {% elif userid != "notfound" %}
+        {{ friend_id }}
+        {{ friend_status }}
+        {% if friend_status == '1' and rejected != True %}
+         <form action="/theweber.in/rejectrequest" method="post" name="rejectrequest" id="rejectrequest">
+            {%csrf_token%}
+             <div>{{user1.username}}</div>
+             Friendrequest alredy sent
+             <input type="hidden" value="{{user1.id}}" name="rejectfriendid" id="rejectfriendid">
+             <input type="submit" value="reject friend" id="rejectfriend" name="rejectfriend">
+        </form>
+
+        {% elif friend_status == '2' and rejected != True %}
+            <form action="/theweber.in/rejectrequest" method="post" name="rejectrequest" id="rejectrequest">
+            {%csrf_token%}
+             <div>{{user1.username}}</div>
+             Friends
+             <input type="hidden" value="{{user1.id}}" name="rejectfriendid" id="rejectfriendid">
+             <input type="submit" value="reject friend" id="rejectfriend" name="rejectfriend">
+        </form>
+
+        {% elif final_reusult == 'hasbeensent' or final_result == 'alredysent' and rejected != True %}
+             alredy request sent
+             <form action="/theweber.in/rejectrequest" method="post" name="rejectrequest" id="rejectrequest">
+                {%csrf_token%}
+                 <div>{{user1.username}}</div>
+                 Friendrequest alredy sent
+                 <input type="hidden" value="{{user1.id}}" name="rejectfriendid" id="rejectfriendid">
+                 <input type="submit" value="reject friend" id="rejectfriend" name="rejectfriend">
+            </form>
+        {% else %}
+        nothing to done
+
+
+        {% endif %}
+    {% else %}
+        elsepart occured
+    {% endif %}
+ {% endif %}
+ {% endblock %}
+the username is {{user.username}}<br/>
+the userid is {{user.id}}
+
+////////////profile
+
+{% extends 'homepage.html' %}
+{% load set_var %}
+{% block body %}
+{{ final_result }}
+{{ rejected }}
+
+{% if user.is_authenticated %}
+    <a href="/theweber.in/home">goto home</a>
+
+    {%if user.id == user1.id%}
+        <form action="" method="post" name="updateinfo" id="updateinfo">
+            {%csrf_token%}
+            <input type="text" value="{{user1.username}}" name="username" id="username">
+            <input type="text" value="{{user1.id}}" name="userid" id="userid">
+            <input type="submit" value="update info">
+        </form>
+        <div id="updatestatus"></div>
+
+
+
+    {% elif userid == "notfound" %}
+        <form action="/theweber.in/sendrequest" method="post" name="sendrequest" id="sendrequest">
+            {%csrf_token%}
+             <div>{{user1.username}}</div>
+             <input type="hidden" value="{{user1.id}}" name="tofriend" id="tofriend">
+             <input type="submit" value="add friend" id="addfriend" name="addfriend">
+        </form>
+
+
+    {% elif final_result == "hasbeensent" and rejected != True %}
+         <form action="/theweber.in/rejectrequest" method="post" name="rejectrequest" id="rejectrequest">
+            {%csrf_token%}
+             <div>{{user1.username}}</div>
+             <input type="hidden" value="{{user1.id}}" name="rejectfriendid" id="rejectfriendid">
+             <input type="submit" value="reject friend" id="rejectfriend" name="rejectfriend">
+        </form>
+
+
+    {% elif userid != "notfound" %}
+        {{ friend_id }}
+        {{ friend_status }}
+        {% if friend_status == '1' and rejected != True %}
+         <form action="/theweber.in/rejectrequest" method="post" name="rejectrequest" id="rejectrequest">
+            {%csrf_token%}
+             <div>{{user1.username}}</div>
+             Friendrequest alredy sent
+             <input type="hidden" value="{{user1.id}}" name="rejectfriendid" id="rejectfriendid">
+             <input type="submit" value="reject friend" id="rejectfriend" name="rejectfriend">
+        </form>
+
+        {% elif friend_status == '2' and rejected != True %}
+            <form action="/theweber.in/rejectrequest" method="post" name="rejectrequest" id="rejectrequest">
+            {%csrf_token%}
+             <div>{{user1.username}}</div>
+             Friends
+             <input type="hidden" value="{{user1.id}}" name="rejectfriendid" id="rejectfriendid">
+             <input type="submit" value="reject friend" id="rejectfriend" name="rejectfriend">
+        </form>
+
+        {% elif final_reusult == 'hasbeensent' or final_result == 'alredysent' and rejected != True %}
+             alredy request sent
+             <form action="/theweber.in/rejectrequest" method="post" name="rejectrequest" id="rejectrequest">
+                {%csrf_token%}
+                 <div>{{user1.username}}</div>
+                 Friendrequest alredy sent
+                 <input type="hidden" value="{{user1.id}}" name="rejectfriendid" id="rejectfriendid">
+                 <input type="submit" value="reject friend" id="rejectfriend" name="rejectfriend">
+            </form>
+        {% else %}
+        nothing to done
+
+
+        {% endif %}
+    {% else %}
+        elsepart occured
+    {% endif %}
+ {% endif %}
+ {% endblock %}
+the username is {{user.username}}<br/>
+the userid is {{user.id}}
+

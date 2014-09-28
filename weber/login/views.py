@@ -46,8 +46,6 @@ def login(request):
         if user is not None and user.is_active:
             #user.backend = 'mongoengine.django.auth.MongoEngineBackend'
             auth.login(request, user)
-            return HttpResponseRedirect('/theweber.in/home',{'username':request.user.username})
-
             return HttpResponseRedirect('/theweber.in/home')
         else:
             return render(request,'login.html',{'result':'username and password not valid'})

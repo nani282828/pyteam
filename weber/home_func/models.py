@@ -18,12 +18,8 @@ class myfriends(EmbeddedDocument):
 class Friends(Document):
     friend1 = ReferenceField(User)
     myfriendslist = ListField(EmbeddedDocumentField(myfriends))
-    permission_type=StringField(max_length=120,required=True)
+    #permission_type=StringField(max_length=120,required=True)
     #auto_id = IntField(required=True)
     #user_id = StringField(max_length=200)
 
-class friends(Document):
-    friend1 = ReferenceField(User)
-    friend2 = ListField(ReferenceField(User))
-    status = ListField(IntField())
 

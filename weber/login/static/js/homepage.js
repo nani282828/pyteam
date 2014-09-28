@@ -4,12 +4,15 @@
          var post_text = $( "#post_text" ).val();
 
         $.post('/theweber.in/post_status', $(this).serialize(), function(data){
+
             //var obj = JSON.parse(data);
             console.log(data);
             $("#userpostdiv").prepend(data);
-            var obj = JSON.parse(data);
-            console.log(obj)
-            $("#userpostdiv").prepend("<div>"+obj.username+"</div><div class='message_box' id='"+obj.id+"'><span>"+obj.post_title+"</span><span class='postdatestyles'>"+obj.publish_date+"</span></div><br/>===========================");
+
+            //var obj = JSON.parse(data);
+           // console.log(obj)
+            //$("#userpostdiv").prepend("<div>"+obj.username+"</div><div class='message_box' id='"+obj.id+"'><span>"+obj.post_title+"</span><span class='postdatestyles'>"+obj.publish_date+"</span></div><br/>===========================");
+
             $("#post_text").val('');
           });
         return false;
@@ -28,6 +31,7 @@ $('#search').keyup(function() {
         });
 
     });
+
     //========================update info================
      jQuery("#updateinfo").submit(function( event ) {
 
@@ -38,15 +42,6 @@ $('#search').keyup(function() {
         return false;
       });
 
-//================send friend request====================
-        jQuery("#sendrequest").submit(function( event ) {
-        $.post('/theweber.in/sendrequest', $(this).serialize(), function(data){
-            console.log(data)
-            alert(data)
-            //$("#updatestatus").html(data);
-          });
-        return false;
-      });
 
 });
 
@@ -103,10 +98,10 @@ function getCookie(name) {
     return cookieValue;
 }
 
-
+/*
 
 function profile(username){
-     alert(username)
+     //alert(username)
      $.ajax({
             type: "POST",
             url: "/show_profile",
@@ -117,11 +112,12 @@ function profile(username){
             success: request_sent_not,
             dataType: 'html'
         });
-}
+}*/
 
 function request_sent_not(data, textStatus, jqXHR)
 {
-    alert(data)
+    //alert(data)
     console(log.data)
 }
-//this is non error free code
+
+

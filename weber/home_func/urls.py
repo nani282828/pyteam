@@ -11,7 +11,10 @@ urlpatterns = patterns('',
     url(r'^post_status$','home_func.views.post_status'),
     url(r'^load_more_posts','home_func.views.load_scroll_posts'),
     url(r'^search','home_func.views.search_titles'),
-    url(r'^profile/(?P<username>[-\w]+)/$','home_func.views.profile_info'),
+    #url(r'^profile/(?P<username>[-\w]+)/$','home_func.views.profile_info'),
     url(r'^updateinfo','home_func.views.update_userinfo'),
-    url(r'^sendrequest','home_func.views.frnd_request_sent'),
+    url(r'^profile/(?P<username>[-\w]+)/$','home_func.views.get_selected_user_info'),
+    url(r'^addfriend','home_func.views.add_friend'),
+    url(r'^rejectfriend','home_func.views.reject_friend'),
+
 )

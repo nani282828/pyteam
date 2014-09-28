@@ -27,7 +27,7 @@ TEMPLATE_DEBUG = True
 ALLOWED_HOSTS = []
 
 AUTHENTICATION_BACKENDS = (
-    'mongoengine.django.auth.MongoEngineBackend',
+        'mongoengine.django.auth.MongoEngineBackend',
 )
 LOGIN_URL = '/theweber.in/login'
 LOGIN_REDIRECT_URL = '/theweber.in/login'
