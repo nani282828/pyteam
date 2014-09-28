@@ -30,7 +30,7 @@ def register(request):
 def home(request):
     if request.user.is_authenticated:
         posts = Userpost.objects.filter().order_by('-publish_date').limit(2)
-        return render(request,'homepage.html',{'userposts': posts, 'username':request.user.username})
+        return render(request,'home.html',{'userposts': posts, 'username':request.user.username})
     else:
         return HttpResponseRedirect('/theweber.in/login')
 
